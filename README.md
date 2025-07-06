@@ -2,6 +2,8 @@
 
 A fast, lightweight, and modern application launcher for Linux, inspired by Synapse but built from the ground up in Rust.
 
+![Synaptrix Screenshot](img/sss.png)
+
 ## 🚀 About
 
 Synaptrix is a GPL3-licensed application launcher designed specifically for Linux Mint (and other Linux distributions). Born out of the need for a fast, reliable, and actively maintained launcher that captures the simplicity and efficiency of Synapse, Synaptrix leverages Rust's performance and safety to deliver a snappy user experience.
@@ -96,7 +98,7 @@ Don't worry if you're new to Rust or open source—everyone starts somewhere! Fe
 
 ### Building from Source
 ```bash
-git clone https://github.com/[your-username]/synaptrix.git
+git clone https://github.com/ritulahkar/synaptrix.git
 cd synaptrix
 cargo build
 ```
@@ -129,8 +131,8 @@ This project is licensed under the GPL3 License - see the [LICENSE](LICENSE) fil
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/[your-username]/synaptrix/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/[your-username]/synaptrix/discussions)
+- **Issues**: [GitHub Issues](https://github.com/ritulahkar/synaptrix/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/ritulahkar/synaptrix/discussions)
 - **Community**: Join our discussions and help shape the future of Synaptrix!
 
 ## 🌟 Star History
