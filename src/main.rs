@@ -130,9 +130,9 @@ impl AppLauncher {
             .resizable(false) // This often helps with centering
             .build();
 
-        let pixbuf = gdk_pixbuf::Pixbuf::from_resource("/com/example/myapp/icon.png")
-            .expect("Failed to load icon from resource");
-        window.set_icon_name(Some(&pixbuf));
+        // let pixbuf = gdk_pixbuf::Pixbuf::from_resource("/com/example/myapp/icon.png")
+        //     .expect("Failed to load icon from resource");
+        // window.set_icon_name(Some(&pixbuf));
 
         // Make window modal and set up click-outside-to-close
         window.set_modal(true);

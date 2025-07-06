@@ -28,7 +28,7 @@ Synaptrix fills this gap by combining the best aspects of traditional launchers 
 
 ### From Source
 ```bash
-git clone https://github.com/[your-username]/synaptrix.git
+git clone https://github.com/ritulahkar/Synaptrix.git
 cd synaptrix
 cargo build --release
 sudo cp target/release/synaptrix /usr/local/bin/
