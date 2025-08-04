@@ -21,6 +21,7 @@ struct LauncherSettings {
     recent_files: RecentFilesSettings,
 }
 
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct WindowSettings {
     width: i32,
