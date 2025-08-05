@@ -30,6 +30,7 @@ pub struct BehaviorSettings {
     pub max_results: usize,
     pub auto_close: bool,
     pub show_descriptions: bool,
+    pub quit_on_close: bool, // New setting: true = quit app, false = stay in memory
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -58,6 +59,7 @@ impl Default for LauncherSettings {
                 max_results: 50,
                 auto_close: true,
                 show_descriptions: true,
+                quit_on_close: false, // Default to staying in memory (daemon mode)
             },
             recent_files: RecentFilesSettings {
                 enabled: true,
@@ -210,6 +212,7 @@ mod tests {
         let mut settings = LauncherSettings::default();
         settings.window.width = 800;
         settings.theme.background_color = "red".to_string();
+        settings.behavior.quit_on_close = true;
         
         // Save to YAML
         let yaml_content = serde_yaml::to_string(&settings).unwrap();
@@ -222,6 +225,7 @@ mod tests {
         // Verify the data matches
         assert_eq!(loaded_settings.window.width, 800);
         assert_eq!(loaded_settings.theme.background_color, "red");
+        assert_eq!(loaded_settings.behavior.quit_on_close, true);
     }
 
     #[test]
@@ -230,6 +234,7 @@ mod tests {
         assert_eq!(settings.window.width, 700);
         assert_eq!(settings.behavior.max_results, 50);
         assert!(settings.recent_files.enabled);
+        assert_eq!(settings.behavior.quit_on_close, false); // Default is daemon mode
     }
 
     #[test]

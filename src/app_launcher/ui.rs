@@ -1,14 +1,17 @@
-// ui.rs
-use gtk::glib;
+// ui.rs - Debug version
 use gtk::prelude::*;
 use gtk::Box as GtkBox;
-use gtk::{ApplicationWindow, Entry, ListBox, ScrolledWindow, EventControllerFocus};
+use gtk::{ApplicationWindow, Entry, ListBox, ScrolledWindow};
+use crate::settings::LauncherSettings;
 
 pub fn setup_ui(
     window: &ApplicationWindow,
     search_entry: &mut Entry,
     app_list: &mut ListBox,
+    settings: &LauncherSettings,
 ) {
+    // println!("Setting up UI, quit_on_close: {}", settings.behavior.quit_on_close);
+    
     let vbox = GtkBox::new(gtk::Orientation::Vertical, 0);
     vbox.set_margin_top(15);
     vbox.set_margin_bottom(15);
@@ -35,34 +38,8 @@ pub fn setup_ui(
 
     vbox.append(search_entry);
     vbox.append(&scrolled);
-
     window.set_child(Some(&vbox));
-}
 
-pub fn setup_focus_out_handler(window: &ApplicationWindow) {
-    let window_weak = window.downgrade();
-    
-    let focus_controller = EventControllerFocus::new();
-    focus_controller.connect_leave(move |_| {
-        if let Some(window) = window_weak.upgrade() {
-            // Add a small delay to prevent immediate closing when clicking between widgets
-            glib::timeout_add_local_once(std::time::Duration::from_millis(100), move || {
-                // Check if the window still exists and doesn't have focus
-                if window.has_focus() {
-                    return;
-                }
-                
-                // Optionally check if any child widget has focus
-                if let Some(focus_widget) = window.focus_widget() {
-                    if focus_widget.has_focus() {
-                        return;
-                    }
-                }
-                
-                window.close();
-            });
-        }
-    });
-
-    window.add_controller(focus_controller);
+    // Don't set up close handlers here - AppLauncher will handle them
+    // println!("UI setup complete");
 }
