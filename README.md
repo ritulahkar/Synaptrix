@@ -231,11 +231,11 @@ Don't worry if you're new to Rust or open source—everyone starts somewhere! Fe
 - [x] Command execution support
 - [x] Recent files integration
 - [x] Directory file indexing
+- [x] Wayland compatibility
 - [ ] Complete feature parity with Synapse
 - [ ] Plugin system for extensibility
 - [ ] Themes and customization options
 - [ ] Multi-monitor support improvements
-- [ ] Wayland compatibility
 - [ ] Package manager integration
 
 ## 🔧 Development
