@@ -3,21 +3,24 @@
 [![Release](https://img.shields.io/github/v/release/ritulahkar/synaptrix?include_prereleases)](https://github.com/ritulahkar/synaptrix/releases)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=flat&logo=rust&logoColor=white)](https://www.rust-lang.org/)
+[![GTK4](https://img.shields.io/badge/GTK-4-blue.svg)](https://gtk.org/)
 
-A fast, lightweight, and modern application launcher for Linux, inspired by Synapse but built from the ground up in Rust.
+A fast, lightweight, and modern application launcher for Linux, built with Rust and GTK4, inspired by Synapse.
 
 ![Synaptrix Screenshot](img/sss.png)
 
 ## 🚀 About
 
-Synaptrix is a GPL3-licensed application launcher designed specifically for Linux Mint (and other Linux distributions). Born out of the need for a fast, reliable, and actively maintained launcher that captures the simplicity and efficiency of Synapse, Synaptrix leverages Rust's performance and safety to deliver a snappy user experience.
+Synaptrix is a GPL3-licensed application launcher designed specifically for Linux Mint (and other Linux distributions). Born out of the need for a fast, reliable, and actively maintained launcher that captures the simplicity and efficiency of Synapse, Synaptrix leverages Rust's performance and safety combined with GTK4's modern UI toolkit to deliver a snappy user experience.
 
 ## ✨ Features
 
 - **Lightning Fast**: Built in Rust for maximum performance and minimal resource usage
+- **Modern UI**: Powered by GTK4 for a contemporary and responsive interface
 - **Synapse-like Interface**: Familiar workflow for users coming from Synapse
 - **Modern Architecture**: Clean, maintainable codebase designed for long-term sustainability
 - **Linux Mint Optimized**: Thoroughly tested and optimized for Linux Mint environments
+- **Wayland & X11 Support**: Works seamlessly on both display servers
 - **Configurable**: Full customization through YAML configuration file
 - **Dual Operation Modes**: Choose between daemon mode (stays in memory) or normal mode (exits on close)
 - **Multiple Search Types**: Applications, files, recent files, and command execution
@@ -29,10 +32,10 @@ The Linux desktop ecosystem was missing a fast, Rust-based launcher that:
 - Actually works reliably
 - Is actively maintained
 - Provides the smooth Synapse-like experience users love
-- Takes advantage of modern programming practices
+- Takes advantage of modern programming practices (Rust + GTK4)
 - Offers extensive customization options
 
-Synaptrix fills this gap by combining the best aspects of traditional launchers with modern Rust performance.
+Synaptrix fills this gap by combining the best aspects of traditional launchers with modern Rust performance and GTK4's advanced UI capabilities.
 
 ## ⚙️ Configuration
 
@@ -138,7 +141,7 @@ sudo cp target/release/synaptrix /usr/local/bin/
 
 ### Dependencies (for building from source)
 - Rust 1.70 or later
-- GTK development libraries
+- GTK4 development libraries (`libgtk-4-dev` on Ubuntu/Debian)
 - Linux Mint 20+ (or compatible distributions)
 
 ### Setting Up Hotkey
@@ -220,9 +223,41 @@ Don't worry if you're new to Rust or open source—everyone starts somewhere! Fe
 
 ## 🐛 Known Issues
 
-- [List any known issues here]
-- Performance optimization ongoing
-- Feature parity with Synapse still in development
+**We need your help to fix these issues!** If you have experience with GTK4, Rust, or Linux desktop development, your contributions would be greatly appreciated:
+
+### 🔧 Critical Issues Needing Help
+
+1. **Window Positioning Issues in X11**
+   - **Problem**: Window positioning is not properly centered when using X11 display server
+   - **Status**: Works correctly in Wayland, but fails to center properly in X11
+   - **Help Needed**: GTK4 window positioning experts familiar with X11/Wayland differences
+   - **Impact**: Affects user experience on X11-based desktop environments
+
+2. **Missing Application Icon in Taskbar**
+   - **Problem**: Synaptrix doesn't display its logo/icon in the system taskbar
+   - **Status**: Icon files exist but aren't properly registered with the window manager
+   - **Help Needed**: GTK4 application icon setup and desktop integration knowledge
+   - **Impact**: Makes it harder to identify the application when running
+
+3. **Inconsistent Theme Application**
+   - **Problem**: Custom themes from configuration don't always apply consistently across all UI elements
+   - **Status**: Some GTK4 widgets don't respect the custom RGBA colors properly
+   - **Help Needed**: GTK4 CSS styling and theme system expertise
+   - **Impact**: Reduces visual consistency and customization effectiveness
+
+### 🆘 How to Help
+
+If you can contribute to fixing any of these issues:
+- **Open an issue** to discuss your approach
+- **Submit a PR** with your fix
+- **Share knowledge** about GTK4 best practices
+- **Test fixes** on different desktop environments
+
+These issues are perfect opportunities for developers familiar with:
+- GTK4 window management and positioning
+- Linux desktop integration standards
+- GTK4 theming and CSS systems
+- Rust-GTK4 bindings
 
 ## 📋 Roadmap
 
@@ -232,9 +267,13 @@ Don't worry if you're new to Rust or open source—everyone starts somewhere! Fe
 - [x] Recent files integration
 - [x] Directory file indexing
 - [x] Wayland compatibility
+- [x] GTK4 modern UI implementation
+- [ ] Fix X11 window positioning issues
+- [ ] Fix taskbar icon display
+- [ ] Improve theme consistency
 - [ ] Complete feature parity with Synapse
 - [ ] Plugin system for extensibility
-- [ ] Themes and customization options
+- [ ] Enhanced themes and customization options
 - [ ] Multi-monitor support improvements
 - [ ] Package manager integration
 
@@ -262,6 +301,13 @@ cargo fmt
 cargo clippy
 ```
 
+## 🛠️ Technology Stack
+
+- **Language**: Rust 1.70+
+- **UI Framework**: GTK4
+- **Configuration**: YAML
+- **Platform**: Linux (Wayland & X11)
+
 ## 📝 License
 
 This project is licensed under the GPL3 License - see the [LICENSE](LICENSE) file for details.
@@ -269,7 +315,7 @@ This project is licensed under the GPL3 License - see the [LICENSE](LICENSE) fil
 ## 🙏 Acknowledgments
 
 - Inspired by the original Synapse launcher
-- Built with the Rust programming language
+- Built with the Rust programming language and GTK4
 - Developed with assistance from AI tools
 - Thanks to the Linux Mint and broader Linux community
 
@@ -285,4 +331,4 @@ If you find Synaptrix useful, please consider giving it a star! It helps others 
 
 ---
 
-**Note**: This project is a community effort. As a learning developer, I rely on the expertise and contributions of the community to make Synaptrix the best launcher it can be. Every contribution, no matter how small, makes a difference!
+**Note**: This project is a community effort built with Rust and GTK4. As a learning developer, I rely on the expertise and contributions of the community to make Synaptrix the best launcher it can be. Every contribution, no matter how small, makes a difference!
