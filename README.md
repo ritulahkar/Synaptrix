@@ -123,16 +123,57 @@ The settings file is located at: `~/.config/synaptrix/settings.yaml`
 
 ## 🛠️ Installation
 
-### Option 1: Download Latest Release (Recommended)
+### Option 1: Debian Package (Recommended)
+
+**For Debian-based distributions (Ubuntu, Linux Mint, Pop!_OS, etc.):**
+
 1. Go to the [Releases page](https://github.com/ritulahkar/synaptrix/releases)
-2. Download the latest binary for your architecture
-3. Make it executable and move to system path:
+2. Download the latest `.deb` package (e.g., `synaptrix_0.0.2-alpha-1_amd64.deb`)
+3. Install using your package manager:
+
 ```bash
+# Using dpkg (command line)
+sudo dpkg -i synaptrix_0.0.2-alpha-1_amd64.deb
+sudo apt-get install -f  # Fix any missing dependencies
+
+# Or using apt (recommended)
+sudo apt install ./synaptrix_0.0.2-alpha-1_amd64.deb
+
+# Or using gdebi (GUI)
+sudo gdebi synaptrix_0.0.2-alpha-1_amd64.deb
+```
+
+The Debian package automatically handles:
+- Binary installation to `/usr/bin/synaptrix`
+- Desktop integration and icons setup
+- Menu entry creation
+- Proper file permissions
+- System integration
+
+**That's it!** No additional scripts needed - everything is configured automatically.
+
+### Option 2: Archive Package (For Non-Debian Systems)
+
+**For other Linux distributions:**
+
+1. Go to the [Releases page](https://github.com/ritulahkar/synaptrix/releases)
+2. Download the archive package (e.g., `synaptrix-v0.0.2-alpha-linux-x86_64.tar.gz`)
+3. Extract and install:
+
+```bash
+# Extract the archive
+tar -xzf synaptrix-v0.0.2-alpha-linux-x86_64.tar.gz
+cd synaptrix-v0.0.2-alpha-linux-x86_64
+
+# Make executable and install
 chmod +x synaptrix
 sudo mv synaptrix /usr/local/bin/
 ```
 
-### Option 2: Build from Source
+**Note**: The archive package only installs the binary. For full desktop integration (icons, menu entries), use the Debian package if your distribution supports it.
+
+### Option 3: Build from Source
+
 ```bash
 git clone https://github.com/ritulahkar/Synaptrix.git
 cd synaptrix
@@ -140,48 +181,18 @@ cargo build --release
 sudo cp target/release/synaptrix /usr/local/bin/
 ```
 
-### Dependencies (for building from source)
+**Note**: Building from source only installs the binary. For full desktop integration (icons, menu entries), use the Debian package if your distribution supports it.
+
+### Dependencies
+
+**Runtime Dependencies** (automatically handled by .deb package):
+- GTK4 runtime libraries
+- Linux desktop environment
+
+**Build Dependencies** (only needed when building from source):
 - Rust 1.70 or later
 - GTK4 development libraries (`libgtk-4-dev` on Ubuntu/Debian)
 - Linux Mint 20+ (or compatible distributions)
-
-### 🎨 Desktop Integration and Icon Setup
-
-After installing the binary, you need to set up desktop integration for proper taskbar icons and launcher menu entries. Synaptrix includes automated scripts to handle this:
-
-#### Install Desktop Integration
-```bash
-# Clone the repository (if building from source, you already have this)
-git clone https://github.com/ritulahkar/synaptrix.git
-cd synaptrix
-
-# Run the icon installation script
-chmod +x install-icons.sh
-./install-icons.sh
-
-# For system-wide installation (recommended)
-sudo ./install-icons.sh
-```
-
-#### What the Script Does
-- Automatically finds icons in the `icons/` directory
-- Installs icons in all required sizes (16px to 512px)
-- Sets up the desktop entry file for launcher integration
-- Updates system icon and desktop caches
-- Provides verification commands to ensure proper installation
-
-#### Uninstalling Desktop Integration
-To remove icons and desktop integration:
-```bash
-# Run the uninstall script
-chmod +x uninstall-icons.sh
-./uninstall-icons.sh
-
-# For system-wide removal
-sudo ./uninstall-icons.sh
-```
-
-**Important**: The desktop integration scripts are included in the repository and handle all the complex setup automatically. You must run these scripts to get proper taskbar icons and desktop launcher integration.
 
 ### Setting Up Hotkey
 After installation, set up a keyboard shortcut to launch Synaptrix instantly:
@@ -301,7 +312,7 @@ These issues are perfect opportunities for developers familiar with:
 - [x] Wayland compatibility
 - [x] GTK4 modern UI implementation
 - [x] Desktop integration and taskbar icons
-- [x] Automated installation scripts
+- [x] Debian package (.deb) distribution
 - [ ] Fix X11 window positioning issues
 - [ ] Improve theme consistency
 - [ ] Complete feature parity with Synapse

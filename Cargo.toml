@@ -2,6 +2,15 @@
 name = "synaptrix"
 version = "0.0.2-alpha"
 edition = "2021"
+authors = ["Ritu Lahkar <ritulahkar@example.com>"]  # Replace with your actual email
+description = "A fast, lightweight, and modern application launcher for Linux, built with Rust and GTK4"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/ritulahkar/synaptrix"
+homepage = "https://github.com/ritulahkar/synaptrix"
+documentation = "https://github.com/ritulahkar/synaptrix"
+readme = "README.md"
+keywords = ["launcher", "application", "linux", "gtk4", "desktop"]
+categories = ["gui", "os::linux-specific"]
 
 [dependencies]
 gtk = { version = "0.7", package = "gtk4" }
@@ -11,3 +20,52 @@ serde_json = "1.0"
 tokio = { version = "1.0", features = ["full"] }
 serde_yaml = "0.9"
 tempfile = "3.20.0"
+
+# Metadata for cargo-deb (Debian package generation)
+[package.metadata.deb]
+maintainer = "Ritu Lahkar <ritulahkar92@gmail.com>"  # Replace with your actual email
+copyright = "2025, Ritu Lahkar <ritulahkar92@gmail.com>"
+license-file = ["LICENSE", "4"]
+extended-description = """\
+Synaptrix is a GPL3-licensed application launcher designed specifically for \
+Linux Mint and other Linux distributions. Born out of the need for a fast, \
+reliable, and actively maintained launcher that captures the simplicity and \
+efficiency of Synapse, Synaptrix leverages Rust's performance and safety \
+combined with GTK4's modern UI toolkit to deliver a snappy user experience.
+
+Features:
+• Lightning Fast: Built in Rust for maximum performance
+• Modern UI: Powered by GTK4 for contemporary interface
+• Synapse-like Interface: Familiar workflow for users
+• Wayland & X11 Support: Works on both display servers
+• Configurable: Full customization through YAML configuration
+• Multiple Operation Modes: Daemon or normal mode
+• Desktop Integration: Complete integration with proper icons
+"""
+depends = "$auto, libgtk-4-1, libglib2.0-0"
+section = "utils"
+priority = "optional"
+assets = [
+    ["target/release/synaptrix", "usr/bin/", "755"],
+    ["synaptrix.desktop", "usr/share/applications/", "644"],
+    ["icons/synaptrix.png", "usr/share/pixmaps/", "644"],
+    ["icons/synaptrix-16.png", "usr/share/icons/hicolor/16x16/apps/synaptrix.png", "644"],
+    ["icons/synaptrix-24.png", "usr/share/icons/hicolor/24x24/apps/synaptrix.png", "644"],
+    ["icons/synaptrix-32.png", "usr/share/icons/hicolor/32x32/apps/synaptrix.png", "644"],
+    ["icons/synaptrix-48.png", "usr/share/icons/hicolor/48x48/apps/synaptrix.png", "644"],
+    ["icons/synaptrix-64.png", "usr/share/icons/hicolor/64x64/apps/synaptrix.png", "644"],
+    ["icons/synaptrix-128.png", "usr/share/icons/hicolor/128x128/apps/synaptrix.png", "644"],
+    ["icons/synaptrix-256.png", "usr/share/icons/hicolor/256x256/apps/synaptrix.png", "644"],
+    ["icons/synaptrix-512.png", "usr/share/icons/hicolor/512x512/apps/synaptrix.png", "644"],
+    ["icons/synaptrix.svg", "usr/share/icons/hicolor/scalable/apps/synaptrix.svg", "644"],
+    ["README.md", "usr/share/doc/synaptrix/", "644"],
+    ["LICENSE", "usr/share/doc/synaptrix/", "644"],
+]
+maintainer-scripts = "debian/"
+systemd-units = { enable = false }
+
+[package.metadata.deb.variants.ubuntu]
+depends = "$auto, libgtk-4-1, libglib2.0-0, libcairo-gobject2, libpango-1.0-0"
+
+[package.metadata.deb.variants.debian]
+depends = "$auto, libgtk-4-1, libglib2.0-0, libcairo-gobject2, libpango-1.0-0"

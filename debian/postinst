@@ -1,0 +1,43 @@
+#!/bin/bash
+set -e
+
+case "$1" in
+    configure)
+        echo "Setting up Synaptrix desktop integration..."
+        
+        # Update desktop database
+        if command -v update-desktop-database >/dev/null 2>&1; then
+            echo "Updating desktop database..."
+            update-desktop-database -q /usr/share/applications 2>/dev/null || true
+        fi
+        
+        # Update icon cache for hicolor theme
+        if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+            echo "Updating icon cache..."
+            gtk-update-icon-cache -q /usr/share/icons/hicolor 2>/dev/null || true
+        fi
+        
+        # Update pixmaps cache
+        if command -v update-icon-caches >/dev/null 2>&1; then
+            update-icon-caches /usr/share/pixmaps 2>/dev/null || true
+        fi
+        
+        # Update mime database if needed
+        if command -v update-mime-database >/dev/null 2>&1; then
+            update-mime-database /usr/share/mime >/dev/null 2>&1 || true
+        fi
+        
+        echo "✓ Synaptrix installed successfully!"
+        echo ""
+        echo "To use Synaptrix:"
+        echo "1. Set up a keyboard shortcut (e.g., Ctrl+Space) to launch 'synaptrix'"
+        echo "2. Go to System Settings → Keyboard → Shortcuts → Custom Shortcuts"
+        echo "3. Add new shortcut with command: synaptrix"
+        echo ""
+        echo "Synaptrix should now appear in your application menu under Utilities."
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0
