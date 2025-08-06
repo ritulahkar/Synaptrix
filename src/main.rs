@@ -25,7 +25,7 @@ fn main() {
     };
 
     let app = Application::builder()
-        .application_id("com.mint.launcher")
+        .application_id("com.github.ritulahkar.synaptrix")
         .flags(app_flags)
         .build();
 

@@ -24,6 +24,7 @@ Synaptrix is a GPL3-licensed application launcher designed specifically for Linu
 - **Configurable**: Full customization through YAML configuration file
 - **Dual Operation Modes**: Choose between daemon mode (stays in memory) or normal mode (exits on close)
 - **Multiple Search Types**: Applications, files, recent files, and command execution
+- **Desktop Integration**: Complete desktop integration with proper icons and taskbar support
 - **Open Source**: Fully open source under GPL3 license
 
 ## 🎯 Why Synaptrix?
@@ -144,6 +145,44 @@ sudo cp target/release/synaptrix /usr/local/bin/
 - GTK4 development libraries (`libgtk-4-dev` on Ubuntu/Debian)
 - Linux Mint 20+ (or compatible distributions)
 
+### 🎨 Desktop Integration and Icon Setup
+
+After installing the binary, you need to set up desktop integration for proper taskbar icons and launcher menu entries. Synaptrix includes automated scripts to handle this:
+
+#### Install Desktop Integration
+```bash
+# Clone the repository (if building from source, you already have this)
+git clone https://github.com/ritulahkar/synaptrix.git
+cd synaptrix
+
+# Run the icon installation script
+chmod +x install-icons.sh
+./install-icons.sh
+
+# For system-wide installation (recommended)
+sudo ./install-icons.sh
+```
+
+#### What the Script Does
+- Automatically finds icons in the `icons/` directory
+- Installs icons in all required sizes (16px to 512px)
+- Sets up the desktop entry file for launcher integration
+- Updates system icon and desktop caches
+- Provides verification commands to ensure proper installation
+
+#### Uninstalling Desktop Integration
+To remove icons and desktop integration:
+```bash
+# Run the uninstall script
+chmod +x uninstall-icons.sh
+./uninstall-icons.sh
+
+# For system-wide removal
+sudo ./uninstall-icons.sh
+```
+
+**Important**: The desktop integration scripts are included in the repository and handle all the complex setup automatically. You must run these scripts to get proper taskbar icons and desktop launcher integration.
+
 ### Setting Up Hotkey
 After installation, set up a keyboard shortcut to launch Synaptrix instantly:
 
@@ -225,7 +264,7 @@ Don't worry if you're new to Rust or open source—everyone starts somewhere! Fe
 
 **We need your help to fix these issues!** If you have experience with GTK4, Rust, or Linux desktop development, your contributions would be greatly appreciated:
 
-### 🔧 Critical Issues Needing Help
+### 🔧 Issues Needing Help
 
 1. **Window Positioning Issues in X11**
    - **Problem**: Window positioning is not properly centered when using X11 display server
@@ -233,13 +272,7 @@ Don't worry if you're new to Rust or open source—everyone starts somewhere! Fe
    - **Help Needed**: GTK4 window positioning experts familiar with X11/Wayland differences
    - **Impact**: Affects user experience on X11-based desktop environments
 
-2. **Missing Application Icon in Taskbar**
-   - **Problem**: Synaptrix doesn't display its logo/icon in the system taskbar
-   - **Status**: Icon files exist but aren't properly registered with the window manager
-   - **Help Needed**: GTK4 application icon setup and desktop integration knowledge
-   - **Impact**: Makes it harder to identify the application when running
-
-3. **Inconsistent Theme Application**
+2. **Inconsistent Theme Application**
    - **Problem**: Custom themes from configuration don't always apply consistently across all UI elements
    - **Status**: Some GTK4 widgets don't respect the custom RGBA colors properly
    - **Help Needed**: GTK4 CSS styling and theme system expertise
@@ -247,7 +280,7 @@ Don't worry if you're new to Rust or open source—everyone starts somewhere! Fe
 
 ### 🆘 How to Help
 
-If you can contribute to fixing any of these issues:
+If you can contribute to fixing any of the remaining issues:
 - **Open an issue** to discuss your approach
 - **Submit a PR** with your fix
 - **Share knowledge** about GTK4 best practices
@@ -255,7 +288,6 @@ If you can contribute to fixing any of these issues:
 
 These issues are perfect opportunities for developers familiar with:
 - GTK4 window management and positioning
-- Linux desktop integration standards
 - GTK4 theming and CSS systems
 - Rust-GTK4 bindings
 
@@ -268,8 +300,9 @@ These issues are perfect opportunities for developers familiar with:
 - [x] Directory file indexing
 - [x] Wayland compatibility
 - [x] GTK4 modern UI implementation
+- [x] Desktop integration and taskbar icons
+- [x] Automated installation scripts
 - [ ] Fix X11 window positioning issues
-- [ ] Fix taskbar icon display
 - [ ] Improve theme consistency
 - [ ] Complete feature parity with Synapse
 - [ ] Plugin system for extensibility

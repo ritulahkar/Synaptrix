@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Synaptrix
+Comment=Fast application launcher for Linux
+GenericName=Application Launcher
+Keywords=launcher;search;applications;files;
+Exec=synaptrix
+Icon=synaptrix
+Terminal=false
+NoDisplay=false
+Categories=Utility;Launcher;GTK;
+StartupNotify=true
+StartupWMClass=Synaptrix
