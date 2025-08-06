@@ -1,5 +1,9 @@
 # Synaptrix
 
+[![Release](https://img.shields.io/github/v/release/ritulahkar/synaptrix?include_prereleases)](https://github.com/ritulahkar/synaptrix/releases)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=flat&logo=rust&logoColor=white)](https://www.rust-lang.org/)
+
 A fast, lightweight, and modern application launcher for Linux, inspired by Synapse but built from the ground up in Rust.
 
 ![Synaptrix Screenshot](img/sss.png)
