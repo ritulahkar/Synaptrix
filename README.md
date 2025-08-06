@@ -60,7 +60,7 @@ recent_files:
   enabled: true            # Enable recent files search
   max_files: 200          # Maximum files to track
   xbel_path: ~/.local/share/recently-used.xbel  # Path to XBEL recent files
-directories:
+  directories:
   - ~/Documents           # Directories to index for file search
   - ~/Downloads
   - ~/Desktop
