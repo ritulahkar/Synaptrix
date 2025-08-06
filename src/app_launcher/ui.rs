@@ -8,7 +8,7 @@ pub fn setup_ui(
     window: &ApplicationWindow,
     search_entry: &mut Entry,
     app_list: &mut ListBox,
-    settings: &LauncherSettings,
+    _settings: &LauncherSettings,
 ) {
     // println!("Setting up UI, quit_on_close: {}", settings.behavior.quit_on_close);
     

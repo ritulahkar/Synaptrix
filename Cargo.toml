@@ -2,7 +2,7 @@
 name = "synaptrix"
 version = "0.0.2-alpha"
 edition = "2021"
-authors = ["Ritu Lahkar <ritulahkar@example.com>"]  # Replace with your actual email
+authors = ["Ritu Lahkar <ritulahkar92@gmail.com>"]  # Replace with your actual email
 description = "A fast, lightweight, and modern application launcher for Linux, built with Rust and GTK4"
 license = "GPL-3.0-or-later"
 repository = "https://github.com/ritulahkar/synaptrix"

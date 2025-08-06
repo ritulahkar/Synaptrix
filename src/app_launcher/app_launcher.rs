@@ -84,7 +84,7 @@ impl AppLauncher {
 
         if quit_on_close {
             println!("Setting up NORMAL mode close handler");
-            self.window.connect_close_request(move |window| {
+            self.window.connect_close_request(move |_window| {
                 println!("Close request received in NORMAL mode");
                 if let Some(app) = app_weak.upgrade() {
                     println!("Calling app.quit()");
@@ -215,48 +215,48 @@ impl AppLauncher {
         self.search_entry.grab_focus();
     }
 
-    pub fn hide(&self) {
-        self.window.set_visible(false);
-    }
+    // pub fn hide(&self) {
+    //     self.window.set_visible(false);
+    // }
 
-    pub fn toggle(&self) {
-        if self.window.is_visible() {
-            if self.settings.behavior.quit_on_close {
-                self.quit();
-            } else {
-                self.hide();
-            }
-        } else {
-            self.show();
-        }
-    }
+    // pub fn toggle(&self) {
+    //     if self.window.is_visible() {
+    //         if self.settings.behavior.quit_on_close {
+    //             self.quit();
+    //         } else {
+    //             self.hide();
+    //         }
+    //     } else {
+    //         self.show();
+    //     }
+    // }
 
-    pub fn quit(&self) {
-        if let Some(ref app) = self.app_ref {
-            println!("AppLauncher::quit() called");
-            app.quit();
-        }
-    }
+    // pub fn quit(&self) {
+    //     if let Some(ref app) = self.app_ref {
+    //         println!("AppLauncher::quit() called");
+    //         app.quit();
+    //     }
+    // }
 
-    /// Check if the app should stay in daemon mode
-    pub fn is_daemon_mode(&self) -> bool {
-        !self.settings.behavior.quit_on_close
-    }
+    // /// Check if the app should stay in daemon mode
+    // pub fn is_daemon_mode(&self) -> bool {
+    //     !self.settings.behavior.quit_on_close
+    // }
 
-    // Getters remain the same
-    pub fn window(&self) -> &ApplicationWindow {
-        &self.window
-    }
+    // // Getters remain the same
+    // pub fn window(&self) -> &ApplicationWindow {
+    //     &self.window
+    // }
 
-    pub fn search_entry(&self) -> &Entry {
-        &self.search_entry
-    }
+    // pub fn search_entry(&self) -> &Entry {
+    //     &self.search_entry
+    // }
 
-    pub fn app_list(&self) -> &ListBox {
-        &self.app_list
-    }
+    // pub fn app_list(&self) -> &ListBox {
+    //     &self.app_list
+    // }
 
-    pub fn settings(&self) -> &LauncherSettings {
-        &self.settings
-    }
+    // pub fn settings(&self) -> &LauncherSettings {
+    //     &self.settings
+    // }
 }
