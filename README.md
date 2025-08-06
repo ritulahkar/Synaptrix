@@ -14,6 +14,9 @@ Synaptrix is a GPL3-licensed application launcher designed specifically for Linu
 - **Synapse-like Interface**: Familiar workflow for users coming from Synapse
 - **Modern Architecture**: Clean, maintainable codebase designed for long-term sustainability
 - **Linux Mint Optimized**: Thoroughly tested and optimized for Linux Mint environments
+- **Configurable**: Full customization through YAML configuration file
+- **Dual Operation Modes**: Choose between daemon mode (stays in memory) or normal mode (exits on close)
+- **Multiple Search Types**: Applications, files, recent files, and command execution
 - **Open Source**: Fully open source under GPL3 license
 
 ## 🎯 Why Synaptrix?
@@ -23,12 +26,105 @@ The Linux desktop ecosystem was missing a fast, Rust-based launcher that:
 - Is actively maintained
 - Provides the smooth Synapse-like experience users love
 - Takes advantage of modern programming practices
+- Offers extensive customization options
 
 Synaptrix fills this gap by combining the best aspects of traditional launchers with modern Rust performance.
 
+## ⚙️ Configuration
+
+Synaptrix uses a configuration file located at `~/.config/synaptrix/settings.yaml`. If the file doesn't exist, it will be created with default settings on first run.
+
+### Sample Configuration
+
+The configuration file is automatically created at `~/.config/synaptrix/settings.yaml` on first run with default values. You can customize it to suit your preferences:
+
+```yaml
+window:
+  width: 700               # Window width in pixels
+  height: 500              # Window height in pixels
+  position: center         # Window position: center, top, bottom
+theme:
+  background_color: rgba(248, 249, 250, 0.30)  # RGBA: last value (0.30) controls transparency
+  accent_color: rgba(52, 152, 219, 0.8)        # Color for highlights and selections
+  text_color: '#2c3e50'                        # Text color in hex format
+behavior:
+  max_results: 50          # Maximum number of search results to display
+  auto_close: true         # Close window after launching an item
+  show_descriptions: true  # Show application descriptions in results
+  quit_on_close: false    # Operation mode: false = daemon, true = normal
+recent_files:
+  enabled: true            # Enable recent files search
+  max_files: 200          # Maximum files to track
+  xbel_path: ~/.local/share/recently-used.xbel  # Path to XBEL recent files
+directories:
+  - ~/Documents           # Directories to index for file search
+  - ~/Downloads
+  - ~/Desktop
+  - ~/Pictures
+```
+
+### Detailed Configuration Options
+
+#### Window Configuration
+- **width/height**: Set the launcher window dimensions
+- **position**: Control where the window appears (`center`, `top`, `bottom`)
+
+#### Theme Customization
+- **background_color**: Window background with transparency control
+  - Format: `rgba(red, green, blue, alpha)`
+  - Alpha value (0.0-1.0) controls transparency: 0.0 = fully transparent, 1.0 = fully opaque
+- **accent_color**: Color used for highlights, selected items, and UI accents
+- **text_color**: Color for all text elements (hex format: `#RRGGBB`)
+
+#### Behavior Settings
+- **max_results**: Limit the number of search results displayed to keep the interface clean
+- **auto_close**: Whether to close the launcher window after selecting an item
+- **show_descriptions**: Display descriptive text for applications and files
+- **quit_on_close**: Controls operation mode
+  - `false`: **Daemon Mode** - App stays in memory for instant subsequent launches
+  - `true`: **Normal Mode** - App completely exits when window is closed
+
+#### File Integration
+- **recent_files**: Configure recent files tracking
+  - **enabled**: Turn recent files search on/off
+  - **max_files**: Limit how many files to track
+  - **xbel_path**: Path to the system's recent files database
+- **directories**: List of directories to index for file search
+  - Add any directories you frequently access
+  - Supports `~` for home directory expansion
+  - Subdirectories are automatically included
+
+### Configuration Options
+
+- **Window Settings**: Control window size, position, and appearance
+- **Theme Customization**: Set colors, transparency (4th RGBA value), and visual style
+- **Operation Modes**:
+  - **Daemon Mode** (`quit_on_close: false`): App stays in memory for instant launches
+  - **Normal Mode** (`quit_on_close: true`): App exits when window closes
+- **Search Behavior**: Configure result limits, descriptions, and auto-close behavior
+- **File Integration**: Enable recent files tracking and specify directories to index
+
+### Configuration File Location
+
+The settings file is located at: `~/.config/synaptrix/settings.yaml`
+
+- Created automatically on first run with sensible defaults
+- Fully customizable - edit with any text editor
+- Changes take effect after restarting Synaptrix
+- If corrupted or deleted, a new default file will be regenerated
+
 ## 🛠️ Installation
 
-### From Source
+### Option 1: Download Latest Release (Recommended)
+1. Go to the [Releases page](https://github.com/ritulahkar/synaptrix/releases)
+2. Download the latest binary for your architecture
+3. Make it executable and move to system path:
+```bash
+chmod +x synaptrix
+sudo mv synaptrix /usr/local/bin/
+```
+
+### Option 2: Build from Source
 ```bash
 git clone https://github.com/ritulahkar/Synaptrix.git
 cd synaptrix
@@ -36,10 +132,33 @@ cargo build --release
 sudo cp target/release/synaptrix /usr/local/bin/
 ```
 
-### Dependencies
+### Dependencies (for building from source)
 - Rust 1.70 or later
 - GTK development libraries
 - Linux Mint 20+ (or compatible distributions)
+
+### Setting Up Hotkey
+After installation, set up a keyboard shortcut to launch Synaptrix instantly:
+
+**Linux Mint / Cinnamon:**
+1. Go to `System Settings` → `Keyboard` → `Shortcuts`
+2. Click `Custom Shortcuts` → `Add custom shortcut`
+3. Name: `Synaptrix Launcher`
+4. Command: `synaptrix`
+5. Keyboard binding: `Ctrl+Space` (or your preferred combination)
+
+**GNOME:**
+1. Go to `Settings` → `Keyboard` → `Keyboard Shortcuts`
+2. Click `Custom Shortcuts` → `+` (Add)
+3. Name: `Synaptrix Launcher`
+4. Command: `synaptrix`
+5. Set shortcut: `Ctrl+Space`
+
+**KDE Plasma:**
+1. Go to `System Settings` → `Shortcuts` → `Custom Shortcuts`
+2. Right-click → `New` → `Global Shortcut` → `Command/URL`
+3. Trigger tab: Set to `Ctrl+Space`
+4. Action tab: Command: `synaptrix`
 
 ## 🚀 Usage
 
@@ -49,6 +168,22 @@ synaptrix
 ```
 
 Or set up a keyboard shortcut in your system settings to launch it with a hotkey (recommended: `Ctrl+Space`).
+
+### Search Types
+
+Synaptrix supports multiple search modes:
+
+- **Applications**: Type to search for installed applications
+- **Files**: Search through configured directories and recent files
+- **Commands**: Start typing `/` followed by your command to execute terminal commands
+- **Recent Files**: Access recently used files from `~/.local/share/recently-used.xbel`
+
+### Keyboard Shortcuts
+
+- **Ctrl+Q**: Exit Synaptrix (works in both daemon and normal modes)
+- **Escape**: Close window (behavior depends on `quit_on_close` setting)
+- **Enter**: Launch selected item
+- **Arrow Keys**: Navigate through results
 
 ## 🤝 Contributing
 
@@ -87,6 +222,11 @@ Don't worry if you're new to Rust or open source—everyone starts somewhere! Fe
 
 ## 📋 Roadmap
 
+- [x] YAML configuration system
+- [x] Daemon and normal operation modes
+- [x] Command execution support
+- [x] Recent files integration
+- [x] Directory file indexing
 - [ ] Complete feature parity with Synapse
 - [ ] Plugin system for extensibility
 - [ ] Themes and customization options

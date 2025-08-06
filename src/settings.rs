@@ -22,7 +22,6 @@ pub struct ThemeSettings {
     pub background_color: String,
     pub accent_color: String,
     pub text_color: String,
-    pub transparency: f64,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -53,7 +52,6 @@ impl Default for LauncherSettings {
                 background_color: "rgba(248, 249, 250, 0.70)".to_string(),
                 accent_color: "rgba(52, 152, 219, 0.8)".to_string(),
                 text_color: "#2c3e50".to_string(),
-                transparency: 0.95,
             },
             behavior: BehaviorSettings {
                 max_results: 50,
