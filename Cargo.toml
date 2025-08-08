@@ -42,7 +42,7 @@ Features:
 • Multiple Operation Modes: Daemon or normal mode
 • Desktop Integration: Complete integration with proper icons
 """
-depends = "$auto, libgtk-4-1, libglib2.0-0"
+depends = "$auto, libgtk-4-1, libglib2.0-0, xdotool, x11-utils"
 section = "utils"
 priority = "optional"
 assets = [

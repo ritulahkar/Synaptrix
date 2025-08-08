@@ -2,10 +2,11 @@
 use super::{desktop_parser, file_loader, keyboard, search, styles, ui};
 use crate::app_info::AppInfo;
 use crate::settings::LauncherSettings;
+use gtk::prelude::GtkWindowExt;
 use gtk::prelude::*;
 use gtk::{Application, ApplicationWindow, Entry, ListBox};
 use std::collections::HashMap;
-
+use std::process::Command;
 pub struct AppLauncher {
     apps: HashMap<String, AppInfo>,
     recent_files: Vec<AppInfo>,
@@ -195,11 +196,9 @@ impl AppLauncher {
             &self.settings,
         );
     }
-
     pub fn show(&self) {
         // Clear search when showing
         self.search_entry.set_text("");
-
         // Re-populate the list with all items
         search::filter_and_populate(
             &self.app_list,
@@ -208,11 +207,40 @@ impl AppLauncher {
             "",
             &self.settings,
         );
-
         // Show and present the window
         self.window.set_visible(true);
         self.window.present();
+
+        // Center the window on X11 only
+        self.center_window();
         self.search_entry.grab_focus();
+    }
+
+    fn center_window(&self) {
+        // Only run on X11
+        if std::env::var("XDG_SESSION_TYPE").unwrap_or_default() != "x11" {
+            return;
+        }
+
+        let window_title = self.window.title().unwrap_or_else(|| "Launcher".into());
+
+        let script = format!(
+            r#"
+                WINDOW=$(xdotool search --name "^{}$" | head -1)
+                if [ -n "$WINDOW" ]; then
+                    screen_width=$(xdpyinfo | grep dimensions | awk '{{print $2}}' | cut -d'x' -f1)
+                    screen_height=$(xdpyinfo | grep dimensions | awk '{{print $2}}' | cut -d'x' -f2)
+                    win_width=$(xwininfo -id $WINDOW | awk '/Width:/ {{print $2}}')
+                    win_height=$(xwininfo -id $WINDOW | awk '/Height:/ {{print $2}}')
+                    x=$(( (screen_width - win_width) / 2 ))
+                    y=$(( (screen_height - win_height) / 2 ))
+                    xdotool windowmove $WINDOW $x $y
+                fi
+                "#,
+            window_title
+        );
+
+        let _ = Command::new("sh").arg("-c").arg(&script).output();
     }
 
     // pub fn hide(&self) {
